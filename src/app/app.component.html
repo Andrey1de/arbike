@@ -36,7 +36,10 @@
     </div>
   </div>
 </nav>
-<div class="container-fluid py-3">
+
+<router-outlet></router-outlet>
+
+<!-- <div class="container-fluid py-3">
   <div class="row my-3">
     <div class="col">
       <label for="exampleFormControlInput1" class="form-label">Email address</label>
@@ -75,9 +78,9 @@
       <button type="button" class="btn btn-info">8</button>
     </div>
   </div>
-</div>
+</div> -->
 
-<ng-template #demoModal let-modal>
+<!-- <ng-template #demoModal let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
@@ -97,4 +100,5 @@
     <button type="button" class="btn btn-outline-dark" 
     (click)="modal.close('Save click')">Save</button>
   </div>
-</ng-template>
+</ng-template> -->
+

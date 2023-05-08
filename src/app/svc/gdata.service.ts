@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { ILang } from 'src/app/interf/interfaces';
 
+//import {ILang} from 'src/app/interf/interfaces';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,22 +15,48 @@ export class GDataService {
   public get curLang(): ILang {
     return this.OnLang.value;
   }
-  public OnLang : BehaviorSubject<ILang>;
+  public OnLang : BehaviorSubject<ILang> = new BehaviorSubject<ILang>( GDataService.nullLang);
+  constructor() {
+    this.mapLan.set('en', G_EN);
+    this.mapLan.set('he',G_HEB);
+    this.mapLan.set('ru', G_RU);
+    this.mapLan.set('ar', G_AR);
+    
+    this.setCurLang('he');
+
+  }
      
-  public setCurLang(value: string): ILang  {
-    return  this._curLang = this.mapLan.get(value) ?? GDataService.nullLang;
-   
+  public setCurLang(value: string): ILang | undefined {
+    var   lan = this.mapLan.get(value) ;
+
+    if(lan){
+      this.OnLang.next(this._curLang = lan);
+    }
+    return lan;
   }
   
 
-  constructor() {
-    this.mapLan
-    .set('en', {lid:'en',name:'English'})
-    .set('heb',{lid:'heb',name:'עברית'})
-    .set('ru', {lid:'ru',name:'русский'})
-    .set('ar', {lid:'ar',name:'عربي'});
-    this.OnLang = new BehaviorSubject<ILang>( this.setCurLang('en') );
-
-
-  }
+ 
 }
+
+
+
+           
+const G_EN : ILang = {
+  lid:'en',
+  name:'English',
+  descr: ''};
+
+const G_RU : ILang = {
+  lid:'ru',
+  name:'Русский',
+  descr: ''};
+
+const G_HEB : ILang = {
+  lid:'he',
+  name:'עברית',
+  descr: ''};
+const G_AR : ILang = {
+  lid:'ar',
+  name:'عربي',
+  descr: ''};

@@ -1,0 +1,27 @@
+<p>language works!</p>
+<div class="container-fluid" style="text-align: center;">
+    <div class="row my-3" style="background-color:lightgreen">
+  
+    </div>
+    <div class="row my-3" style="background-color:aqua">
+        <div class="col-1">
+        {{ curLan.name}}
+        </div>
+        <div class="col-10">
+            <button type="button" class="btn btn-success btn-set-lang" 
+                (click)="setLanguage('en')">English</button>
+            <button type="button" class="btn btn-success btn-set-lang"
+                (click)="setLanguage('he')">עברית</button>
+            <button type="button" class="btn btn-success btn-set-lang"
+                (click)="setLanguage('ar')">عربي</button>
+            <button type="button" class="btn btn-success btn-set-lang"
+                (click)="setLanguage('ru')">Русский</button>
+        </div>
+        <div class="col-1">
+        col2
+        </div>
+       </div>
+    <div class="row my-3"  style="background-color:yellow">
+       
+    </div>
+</div>
