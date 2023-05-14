@@ -16,7 +16,15 @@ export class GDataService {
     return this.OnLang.value;
   }
   public OnLang : BehaviorSubject<ILang> = new BehaviorSubject<ILang>( GDataService.nullLang);
-  constructor() {
+  public OnKeyboardFocus: BehaviorSubject<EventTarget | null> = 
+      new BehaviorSubject<EventTarget | null>(null);
+    attachKeyboard(targ:EventTarget | null){
+      this.OnKeyboardFocus.next(targ);
+    }    
+    detachKeyboard(targ:EventTarget | null){
+      this.OnKeyboardFocus.next(null);
+    }    
+           constructor() {
     this.mapLan.set('en', G_EN);
     this.mapLan.set('he',G_HEB);
     this.mapLan.set('ru', G_RU);

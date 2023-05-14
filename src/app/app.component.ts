@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { GDataService } from './svc/gdata.service';
 interface IInfo{
   lan: string;
   info : string;
@@ -23,8 +24,16 @@ export class AppComponent {
   title = 'arbike';
   language:string = 'en';
   txt1:string = 'On';
-  constructor(private modalService: NgbModal) {
-    this.setLanguage('ru') ;
+  constructor(private gdata:GDataService,
+    private modalService: NgbModal) {
+    this.setLanguage('en') ; 
+  }
+  
+  attachKeyboard(evt:FocusEvent ){
+    this.gdata.attachKeyboard(evt.target);
+  }
+  detachKeyboard(evt:FocusEvent){
+    this.gdata.detachKeyboard(evt.target);
   }
  setLanguage(lan:string){
   this.language = lan;

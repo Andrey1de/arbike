@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { LanguageComponent } from './pages/language/language.component';
+import { KeyboardComponent } from './keyboard/keyboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LanguageComponent
+    LanguageComponent,
+    KeyboardComponent
   ],
   imports: [
     BrowserModule,
