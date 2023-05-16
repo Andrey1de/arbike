@@ -1,13 +1,14 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { GDataService } from '../svc/gdata.service';
 import { KEYBOARD_MAP, KeyData } from './keyboard.data';
+import { Subscription } from 'rxjs';
 type EventHandler = (a:string)  =>  {}  ;
 @Component({
   selector: 'app-keyboard',
   templateUrl: './keyboard.component.html',
   styleUrls: ['./keyboard.component.scss']
 })
-export class KeyboardComponent implements  AfterViewInit {
+export class KeyboardComponent implements  AfterViewInit, OnDestroy {
   @Input() lang: string = 'en';
   get isLTR () {return this.lang == 'en' || this.lang == 'ru'};
   @ViewChild('keyboard_main', { static: false }) refMainDiv!: ElementRef<HTMLDivElement> ;
@@ -16,6 +17,7 @@ export class KeyboardComponent implements  AfterViewInit {
   private domKeysContainer!: HTMLDivElement;
   private keyboardAZKeys:HTMLButtonElement[] = [];
   private keybFocusTarget?: EventTarget = undefined;
+  private _subscriptions: Subscription[] = [];
   
   constructor(private gdata:GDataService){
     if(this.lang){
@@ -24,10 +26,14 @@ export class KeyboardComponent implements  AfterViewInit {
       this.lang = this.gdata.Lang.name;
     }
     
-    const ev = this.gdata.OnLang.subscribe(ilang=>{
+    
+    this._subscriptions.push(this.gdata.OnLang.subscribe(ilang=>{
       this.lang = ilang.langId;
       this._setCapsLock();
-    })
+    }));
+  }
+  ngOnDestroy(): void {
+    this._subscriptions.forEach(s=>s.unsubscribe());
   }
 
   getKbChar(kbid : string  ){
@@ -52,20 +58,6 @@ export class KeyboardComponent implements  AfterViewInit {
     }
   }
 
-// elements:  = {
-//   domMain: HTMLDivElement,
-//   domKeysContainer: HTMLDivElement,
-//   keyboardAZKeys: NodeListOf<HTMLElement>
-// }
-
-    // evOnInput  = this.open;
-    // evOnClose  = this.close;
-  
-
-  // properties = {
-  //   value: "",
-  //   capsLock:  false
-  // }
   
   open(initialValue : string) {
     //this.properties.value = initialValue || "";
