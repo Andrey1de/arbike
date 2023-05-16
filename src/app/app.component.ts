@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GDataService } from './svc/gdata.service';
-interface IInfo{
-  lan: string;
-  info : string;
-}
+import { IInfo } from './interf/interfaces';
+
 class CInfo  {
   M:Map<string,IInfo> = new Map<string,IInfo>();
   constructor(){

@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { GDataService } from '../svc/gdata.service';
+import { KEYBOARD_MAP, KeyData } from './keyboard.data';
 type EventHandler = (a:string)  =>  {}  ;
 @Component({
   selector: 'app-keyboard',
@@ -17,9 +18,23 @@ export class KeyboardComponent implements  AfterViewInit {
   private keybFocusTarget?: EventTarget = undefined;
   
   constructor(private gdata:GDataService){
-
+    if(this.lang){
+      this.gdata.setCurLang(this.lang);
+    } else {
+      this.lang = this.gdata.Lang.name;
+    }
+    
+    const ev = this.gdata.OnLang.subscribe(ilang=>{
+      this.lang = ilang.langId;
+      this._setCapsLock();
+    })
   }
 
+  getKbChar(kbid : string  ){
+    const keyData = KEYBOARD_MAP.get(kbid);
+    var ch = keyData?.getKbChar(this.gdata.Lang.name, this.gdata.capsLock)
+
+  }
   ngAfterViewInit(): void {
     this.domMain = this.refMainDiv.nativeElement;
     this.domKeysContainer = this.refKeysContainerDiv.nativeElement;
@@ -43,24 +58,24 @@ export class KeyboardComponent implements  AfterViewInit {
 //   keyboardAZKeys: NodeListOf<HTMLElement>
 // }
 
-    evOnInput  = this.open;
-    evOnClose  = this.close;
+    // evOnInput  = this.open;
+    // evOnClose  = this.close;
   
 
-  properties = {
-    value: "",
-    capsLock:  false
-  }
+  // properties = {
+  //   value: "",
+  //   capsLock:  false
+  // }
   
   open(initialValue : string) {
-    this.properties.value = initialValue || "";
+    //this.properties.value = initialValue || "";
     // this.eventHandlers.oninput = oninput;
     // this.eventHandlers.onclose = onclose;
     this.domMain.classList.remove("keyboard--hidden");
   }
 
   close() {
-    this.properties.value = "";
+    //this.properties.value = "";
     // this.eventHandlers.oninput = oninput;
     // this.eventHandlers.onclose = onclose;
     this.domMain.classList.add("keyboard--hidden");
@@ -73,10 +88,12 @@ export class KeyboardComponent implements  AfterViewInit {
     // Setup domMain elements
     // this.domMain.classList.add("keyboard", "keyboard--hidden");
     // this.domKeysContainer.classList.add("keyboard__keys");
-    const   keyb = this._createKeys();
-     this.domKeysContainer.appendChild(keyb);
-
     this.keyboardAZKeys = [];
+    const   keyb:DocumentFragment = this._createKeys();
+    this.domKeysContainer.appendChild(keyb);
+    this._setCapsLock();
+
+    
     // this.domKeysContainer.querySelectorAll<HTMLButtonElement>(".keyboard__key")
     //   .forEach(p=>this.keyboardAZKeys.push(p));
 
@@ -99,140 +116,159 @@ export class KeyboardComponent implements  AfterViewInit {
 
   _createKeys() {
     const fragment = document.createDocumentFragment();
-    const keyLayout = [
-        "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "backspace","br",
-        "q", "w", "e", "r", "t", "y", "u", "i", "o", "p","br",
-        "caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", "enter","br",
-        "done", "z", "x", "c", "v", "b", "n", "m", ",", ".", "?","br",
-        "space"
-    ];
-
+  
     // Creates HTML for an icon
     const  createIconHTML = (icon_name: string) =>{
       return `<i class="material-icons">${icon_name}</i>`;
     }
     this.keyboardAZKeys = [];
+    const lang = this.gdata.Lang.langId;
+    const capsLock = !!this.gdata.capsLock;
 
-    keyLayout.forEach(key => {
-          if (key === 'br') {
-          fragment.appendChild(document.createElement("br"));
-        } else {
+    KEYBOARD_MAP.forEach((keyData:KeyData,key:string): void => {
+        //   if (key === 'br') {
+        //   fragment.appendChild(document.createElement("br"));
+        // } else {
+          const capsLock = this.gdata.capsLock;
+  
+          const char = keyData.getKbChar(lang,capsLock);
+          
 
           const keyElement = document.createElement("button");
+          keyElement.id = key;
             // Add attributes/classes
           keyElement.setAttribute("type", "button");
           keyElement.classList.add("keyboard__key");
-  
-          switch (key) {
-            case "backspace":
+          switch (char) {
+              case "backspace": //\b
+              case "\b":
                 keyElement.classList.add("keyboard__key--wide");
                 keyElement.innerHTML = createIconHTML("backspace");
 
-                keyElement.addEventListener("click", () => {
-                    this.properties.value = 
-                      this.properties.value.substring(0, this.properties.value.length - 1);
-                    this._triggerEventOnInput();
-                });
+                keyElement.addEventListener("click", () => {  
+                    this.gdata.sendKeyboardChar("\b");
+                  });
 
                 break;
 
-            case "caps":
-                keyElement.classList.add("keyboard__key--wide", "keyboard__key--activatable");
+              
+              case "caps":
+                keyElement.classList.add("keyboard__key--wide",
+                                         "keyboard__key--activatable");
                 keyElement.innerHTML = createIconHTML("keyboard_capslock");
 
                 keyElement.addEventListener("click", () => {
                     this._toggleCapsLock();
-                    keyElement.classList.toggle("keyboard__key--active", this.properties.capsLock);
+                    keyElement.classList.toggle("keyboard__key--active",
+                       this.gdata.capsLock);
                 });
 
                 break;
 
-            case "enter":
+              case "enter"://\n
+              case "\n"://\n
                 keyElement.classList.add("keyboard__key--wide");
                 keyElement.innerHTML = createIconHTML("keyboard_return");
-
-                keyElement.addEventListener("click", () => {
-                    this.properties.value += "\n";
-                    this._triggerEventOnInput();
-                });
                 
-
+                keyElement.addEventListener("click", () => { 
+                    this.gdata.sendKeyboardChar("\n");
+                });
                 break;
             
-            case "space":
-                keyElement.classList.add("keyboard__key--extra-wide");
-                keyElement.innerHTML = createIconHTML("space_bar");
+                case "space":
+                case " ":
+                  keyElement.classList.add("keyboard__key--extra-wide");
+                  keyElement.innerHTML = createIconHTML("space_bar");
 
-                keyElement.addEventListener("click", () => {
-                    this.properties.value += " ";
-                    this._triggerEventOnInput();
-                });
-              
+                  keyElement.addEventListener("click", () => {
+                     this.gdata.sendKeyboardChar(" ");
+                  });
+                    
 
-                break;
+                 break;
 
-            case "done":
-                keyElement.classList.add("keyboard__key--wide", "keyboard__key--dark");
-                keyElement.innerHTML = createIconHTML("check_circle");
+              case "done":
+                  keyElement.classList.add("keyboard__key--wide",
+                                          "keyboard__key--dark");
+                  keyElement.innerHTML = createIconHTML("check_circle");
 
-                keyElement.addEventListener("click", () => {
-                  //   this.close();
-                    this._triggerEventOnClose();
-                });
+                  keyElement.addEventListener("click", () => {
+                    //   this.close();
+                      this._triggerEventOnClose();
+                  });
 
-                break;
+                  break;
 
-          default:
-              keyElement.textContent = key.toLowerCase();
+              default:
+                if(keyData.isChar){
+                  keyElement.textContent = char;
 
-              keyElement.addEventListener("click", () => {
-                  this.properties.value += this.properties.capsLock ? key.toUpperCase() : key.toLowerCase();
-                  this._triggerEventOnInput();
-              });
-              this.keyboardAZKeys.push(keyElement);
-              break;
-              
-          }
+                  keyElement.addEventListener("click", () => {
+                    this.gdata.sendKeyboardChar(char);
+                    // this.properties.value += this.gdata.capsLock ? keyData.toUpperCase() : keyData.toLowerCase();
+                      
+                  });
+                  this.keyboardAZKeys.push(keyElement);
+                
+                }
+                 break;
+            
+            }
+         
   
-          fragment.appendChild(keyElement); 
-          this.keyboardAZKeys.push(keyElement);  
+          fragment.appendChild(keyElement);
+          if(keyData.isLast){
+            fragment.appendChild(document.createElement("br"));
+          } 
+     
+            
         }
-    });
+    );
 
     return fragment;
   }
 
-  _triggerEventOnInput() {
-    if (typeof this.evOnInput == "function") {
-      this.evOnInput(this.properties.value);
-    }
-  }
+  // _triggerEventOnInput() {
+  //   if (typeof this.evOnInput == "function") {
+  //     this.evOnInput(this.properties.value);
+  //   }
+  // }
 
   _triggerEventOnClose() {
-    if (typeof this.evOnClose == "function") {
-      this.evOnClose();
-    }
+    // if (typeof this.evOnClose == "function") {
+    //   //this.evOnClose();
+    // }
   }
 
   _toggleCapsLock() {
-    this.properties.capsLock = !this.properties.capsLock;
-    if(this.isLTR) {
-      for (const key of this.keyboardAZKeys) {
-        if (key.childElementCount === 0) {
-            key.textContent = (this.properties.capsLock ? 
-              key.textContent?.toUpperCase() : key.textContent?.toLowerCase())
-              || '';
+    this.gdata.capsLock = !this.gdata.capsLock;
+    this._setCapsLock();
+  }  
+  
+  _setCapsLock() {
+    for (const key of this.keyboardAZKeys) {
+      if (key.childElementCount === 0) {
+        var keyData = KEYBOARD_MAP.get(key.id);
+        var char = keyData?.getKbChar(this.gdata.Lang?.langId, this.gdata.capsLock);
+        if(char){
+          key.textContent = char;
         }
+          
       }
     }
 
+  } 
 
-  }
+
+
 
   
 
 
-}
+} // eoclass
+
+//"done", "z", "x", "c", "v", "b", "n", "m", ",", ".", "?","br",
+//"space"
 
 //value:string =  "";
 //   capsLock:boolean =  false;
@@ -263,7 +299,7 @@ export class KeyboardComponent implements  AfterViewInit {
 //   private _createKeys() : DocumentFragment {
 //     const fragment = document.createDocumentFragment();
 //     const keyLayout = [
-//         "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "backspace","br",
+//         "1", "1", "3", "4", "5", "6", "7", "8", "9", "0", "backspace","br",
 //         "q", "w", "e", "r", "t", "y", "u", "i", "o", "p","br",
 //         "caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", "enter","br",
 //         "done", "z", "x", "c", "v", "b", "n", "m", ",", ".", "?","br",
@@ -299,12 +335,12 @@ export class KeyboardComponent implements  AfterViewInit {
 //                   break;
   
 //               case "caps":
-//                   keyElement.classList.add("keyboard__key--wide", "keyboard__key--activatable");
+//                   keyElement.classList.add("keyboard__key--wide", "keyboard__keyenter--activatable");
 //                   keyElement.innerHTML = createIconHTML("keyboard_capslock");
   
 //                   keyElement.addEventListener("click", () => {
 //                       this._toggleCapsLock();
-//                       keyElement.classList.toggle("keyboard__key--active", this.properties.capsLock);
+//                       keyElement.classList.toggle("keyboard__key--active", this.gdata.capsLock);
 //                   });
   
 //                   break;
@@ -350,7 +386,7 @@ export class KeyboardComponent implements  AfterViewInit {
 //                 keyElement.textContent = key.toLowerCase();
   
 //                 keyElement.addEventListener("click", () => {
-//                     this.properties.value += this.properties.capsLock ? key.toUpperCase() : key.toLowerCase();
+//                     this.properties.value += this.gdata.capsLock ? key.toUpperCase() : key.toLowerCase();
 //                     this._triggerEventOnInput;
 //                 });
   
@@ -366,11 +402,11 @@ export class KeyboardComponent implements  AfterViewInit {
 //   }
 
 //   _toggleCapsLock() {
-//     this.properties.capsLock = !this.properties.capsLock;
+//     this.gdata.capsLock = !this.gdata.capsLock;
 
 //     this.keyboardAZKeys.forEach( (key )=> {
 //         if (key.childElementCount === 0) {
-//           var str = this.properties.capsLock 
+//           var str = this.gdata.capsLock 
 //                       ? key.textContent?.toUpperCase() 
 //                       : key.textContent?.toLowerCase();
 //             key.textContent = str || '';
