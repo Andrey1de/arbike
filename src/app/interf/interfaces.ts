@@ -8,7 +8,7 @@ export interface ILang{
     descr?:string;
 };
 export interface IForKeyboard{
-    sendChar(ch:string) : string;
+    sendKeyboardChar(ch:string) : string;
     set Target(tar: EventTarget | null) ;
     get Target() : EventTarget | null;
     get Lang(): ILang;

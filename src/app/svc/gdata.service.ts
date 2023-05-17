@@ -25,23 +25,7 @@ export class GDataService implements IForKeyboard{
   public ElementWithFocus: BehaviorSubject<EventTarget | null> = 
      new BehaviorSubject<EventTarget | null>(null);
 
-  sendChar(ch: string): string {
-     var value:string = '';
-    var tr: any = this.Target;
-    if(ch.length === 1 && this.Target || tr?.value)//???
-    {
-      value = tr.value;
-      if(ch === '\b' && value?.length >= 1){
-        value = value.substring(0, value.length - 1)
-      } else {
-        value += ch;
-      }
-      console.log(ch,ch?.charCodeAt(0),value);
-
-    }
-
-    return '';
-  }
+ 
   set Target(targ:EventTarget | null) {
     this.ElementWithFocus.next(targ);
     
@@ -53,7 +37,7 @@ export class GDataService implements IForKeyboard{
     return this.OnLang.value;
   }
   attachKeyboard(targ:EventTarget | null){
-   
+    this.Target = targ;
   }
   
   sendKeyboardChar(ch:string){
@@ -77,7 +61,7 @@ export class GDataService implements IForKeyboard{
   }
 
   detachKeyboard(targ:EventTarget | null){
-    this.ElementWithFocus.next(null);
+    //this.ElementWithFocus.next(null);
   }    
 
     

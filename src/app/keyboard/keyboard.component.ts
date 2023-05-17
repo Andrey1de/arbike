@@ -196,7 +196,7 @@ export class KeyboardComponent implements  AfterViewInit, OnDestroy {
                   keyElement.textContent = char;
 
                   keyElement.addEventListener("click", () => {
-                    this.gdata.sendKeyboardChar(char);
+                    this.gdata.sendKeyboardChar(keyElement?.textContent || '');
                     // this.properties.value += this.gdata.capsLock ? keyData.toUpperCase() : keyData.toLowerCase();
                       
                   });

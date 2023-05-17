@@ -31,7 +31,7 @@ export class AppComponent {
     this.gdata.attachKeyboard(evt.target);
   }
   detachKeyboard(evt:FocusEvent){
-    this.gdata.detachKeyboard(evt.target);
+    //this.gdata.detachKeyboard(evt.target);
   }
  setLanguage(lan:string){
   this.language = lan;
