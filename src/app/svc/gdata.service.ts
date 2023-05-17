@@ -36,6 +36,9 @@ export class GDataService implements IForKeyboard{
   get Lang(): ILang {
     return this.OnLang.value;
   }
+  get IsLTR(): boolean {
+    return this.Lang.langId === 'en' || this.Lang.langId === 'ru' ;
+  }
   attachKeyboard(targ:EventTarget | null){
     this.Target = targ;
   }
@@ -43,7 +46,7 @@ export class GDataService implements IForKeyboard{
   sendKeyboardChar(ch:string){
    
     var trg: any = this.ElementWithFocus?.value || {};
-    if(trg.value){
+    if(trg.value !== undefined){
       var str = trg.value.toString();
       if(ch === '\n' || ch === 'enter') {
         trg.value = str + '\n';

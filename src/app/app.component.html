@@ -36,10 +36,13 @@
     </div>
   </div>
 </nav>
-<textarea class="use-keyboard-input" (focus)="attachKeyboard($event)"
+<div [style.direction] = "direction">
+  <textarea class="use-keyboard-input" (focus)="attachKeyboard($event)"
   (focusout)="detachKeyboard($event)"
-  
   style="border: 1 solid blue;  width: 300px;"></textarea>
+
+  
+</div>
 
 <router-outlet></router-outlet>
 <app-keyboard ></app-keyboard>

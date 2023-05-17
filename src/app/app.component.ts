@@ -21,10 +21,19 @@ export class AppComponent {
   info?:IInfo;// = this.GInfo[]
   title = 'arbike';
   language:string = 'en';
+  direction:string = 'ltr';
   txt1:string = 'On';
   constructor(private gdata:GDataService,
     private modalService: NgbModal) {
-    this.setLanguage('en') ; 
+     this.gdata.OnLang.subscribe(ilang=>{
+      const langId = ilang.langId;
+      this._setLanguage(langId);
+      this.language = langId;
+      this.direction = (langId === 'en' || langId === 'ru') ? 'ltr' : 'rtl';
+   
+    });
+    this.gdata.setCurLang  ('en') ; 
+
   }
   
   attachKeyboard(evt:FocusEvent ){
@@ -33,17 +42,17 @@ export class AppComponent {
   detachKeyboard(evt:FocusEvent){
     //this.gdata.detachKeyboard(evt.target);
   }
- setLanguage(lan:string){
-  this.language = lan;
+ private _setLanguage(lan:string){
+   
   this.info = this.GInfo.M.get(lan);
  }
   public open(modal: any): void {
     this.modalService.open(modal);
   }
-  onSwithchChange($event: any): void {  
-    this.setLanguage(($event.target.checked) ? 'en' : 'ru');
-   // console.dir($event.target.checked);
+  // onSwithchChange($event: any): void {  
+  //   this.setLanguage(($event.target.checked) ? 'en' : 'ru');
+  //  // console.dir($event.target.checked);
 
    
-  }
+  // }
 }
