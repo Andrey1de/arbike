@@ -22,6 +22,10 @@ export class AppComponent {
   title = 'arbike';
   language:string = 'en';
   direction:string = 'ltr';
+  input1:string = "1";
+  input2:string = "2";
+  input3:string = "3";
+  
   txt1:string = 'On';
   constructor(private gdata:GDataService,
     private modalService: NgbModal) {

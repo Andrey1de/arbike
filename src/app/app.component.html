@@ -40,10 +40,13 @@
   <!-- <textarea class="use-keyboard-input" (focus)="attachKeyboard($event)"
   (focusout)="detachKeyboard($event)"
   style="border: 1 solid blue;  width: 300px;"></textarea> -->
-  <input tokeyb id="input1" type="text">
+  <input tokeyb id="input1" type="text" [(ngModel)] = "input1" required>
  
   <br>
-  <input tokeyb id="input2" type="text">
+  <input tokeyb id="input2" type="email" [(ngModel)] = "input2"  required>
+  
+  <br>
+  <input tokeyb id="input3" type="text" [(ngModel)] = "input3"  required>
   
 </div>
 
