@@ -36,12 +36,12 @@ export class AppComponent {
 
   }
   
-  attachKeyboard(evt:FocusEvent ){
-    this.gdata.attachKeyboard(evt.target);
-  }
-  detachKeyboard(evt:FocusEvent){
-    //this.gdata.detachKeyboard(evt.target);
-  }
+  // attachKeyboard(evt:FocusEvent ){
+  //   this.gdata.attachKeyboard(evt.target);
+  // }
+  // detachKeyboard(evt:FocusEvent){
+  //   //this.gdata.detachKeyboard(evt.target);
+  // }
  private _setLanguage(lan:string){
    
   this.info = this.GInfo.M.get(lan);

@@ -1,5 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('/src/assets/fonts_googleapi.css');
+
+.my-border{
+    border: '2px solid blue';
+    background-color: aquamarine;
+}
 .keyboard {
     position: fixed;
     left: 0;

@@ -7,12 +7,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { LanguageComponent } from './pages/language/language.component';
 import { KeyboardComponent } from './keyboard/keyboard.component';
+import { TokeybDirective } from './keyboard/tokeyb.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     LanguageComponent,
-    KeyboardComponent
+    KeyboardComponent,
+    TokeybDirective
   ],
   imports: [
     BrowserModule,

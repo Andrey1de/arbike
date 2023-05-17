@@ -40,7 +40,19 @@ export class GDataService implements IForKeyboard{
     return this.Lang.langId === 'en' || this.Lang.langId === 'ru' ;
   }
   attachKeyboard(targ:EventTarget | null){
+   
+    this._detachKeyboard(this.Target);
     this.Target = targ;
+  }
+  private _detachKeyboard(trgOld: any | null){
+    if(trgOld && trgOld.classList){
+      trgOld?.classList?.remove('my-border');
+      if(trgOld.id){
+        console.log(`@detach: ${trgOld.id} value:"${trgOld.value}"` );
+
+      }
+     
+    }
   }
   
   sendKeyboardChar(ch:string){
