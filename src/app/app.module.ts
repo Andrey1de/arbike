@@ -8,13 +8,15 @@ import { FormsModule } from '@angular/forms';
 import { LanguageComponent } from './pages/language/language.component';
 import { KeyboardComponent } from './keyboard/keyboard.component';
 import { TokeybDirective } from './keyboard/tokeyb.directive';
+import { RegistrationComponent } from './pages/registration/registration.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LanguageComponent,
     KeyboardComponent,
-    TokeybDirective
+    TokeybDirective,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,

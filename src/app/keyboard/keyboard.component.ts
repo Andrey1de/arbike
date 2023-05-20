@@ -236,20 +236,25 @@ export class KeyboardComponent implements  AfterViewInit, OnDestroy {
     this.gdata.capsLock = !this.gdata.capsLock;
     this._setCapsLock();
   }  
-  
+ 
   _setCapsLock() {
+
+  
     for (const key of this.keyboardAZKeys) {
       if (key.childElementCount === 0) {
-        var keyData = KEYBOARD_MAP.get(key.id);
-        var char = keyData?.getKbChar(this.gdata.Lang?.langId, this.gdata.capsLock);
-        if(char){
+        const keyData = KEYBOARD_MAP.get(key.id);
+        if(keyData){
+          const  char = keyData.getKbChar(this.gdata.Lang.langId, this.gdata.capsLock)||'';
           key.textContent = char;
-        }
-          
-      }
-    }
+          key.hidden = (char.length === 0);
 
-  } 
+        }
+      }
+        
+    }
+  }
+
+
 
 
 

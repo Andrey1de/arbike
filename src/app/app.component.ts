@@ -34,7 +34,15 @@ export class AppComponent {
       this._setLanguage(langId);
       this.language = langId;
       this.direction = (langId === 'en' || langId === 'ru') ? 'ltr' : 'rtl';
-   
+      this.modalService.activeInstances.subscribe(value=>{
+        if(value.length >= 1){
+          const res = value[0].result;
+          console.dir(value[0]);
+          console.dir(res);
+      
+    
+        }
+       })
     });
     this.gdata.setCurLang  ('en') ; 
 
@@ -50,8 +58,11 @@ export class AppComponent {
    
   this.info = this.GInfo.M.get(lan);
  }
-  public open(modal: any): void {
-    this.modalService.open(modal);
+  public  open(modal: any) {
+    const ref =   this.modalService.open(modal);
+ 
+   // debugger;
+   // console.dir(ref);
   }
   // onSwithchChange($event: any): void {  
   //   this.setLanguage(($event.target.checked) ? 'en' : 'ru');
