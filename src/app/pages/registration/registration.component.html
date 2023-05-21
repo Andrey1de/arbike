@@ -1,10 +1,15 @@
-<ng-template #modalRgistration let-modal>
+<
+
+
+
+
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">
         הרשמה למערכת חניון אופניים</h4>
       <button type="button" class="btn-close" d
         ata-bs-dismiss="modal" aria-label="Close" 
-        (click)="modal.dismiss('Cross click')"></button>
+        (click)="dismissMe('Cross click')">
+      </button>
     </div>
     <div class="modal-body">
       <form>
@@ -25,6 +30,5 @@
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-dark" 
-      (click)="modal.close('Save click')">Save</button>
+      (click)="closeMe('Save click')">Save</button>
     </div>
-</ng-template>

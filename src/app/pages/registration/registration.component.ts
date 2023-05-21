@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-registration',
@@ -7,8 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent {
-  constructor(private modalService: NgbModal){
-
-  }
-
+  constructor(){}
+  dismissMe(why:string){}
+  closeMe(why:string){}
 }

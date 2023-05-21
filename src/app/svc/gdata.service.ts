@@ -21,6 +21,15 @@ export class GDataService implements IForKeyboard{
     return this.OnLang.value;
   }
   public capsLock: boolean = false;
+  public evShowKeyboard :BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public get KeyboardVisible() {return this.evShowKeyboard.value;}
+  public showHideKeyboard(thoShow:boolean){
+    const b = this.KeyboardVisible;
+    if(b != thoShow){
+      this.evShowKeyboard.next(thoShow);
+
+    }
+  }
   public OnLang : BehaviorSubject<ILang> = new BehaviorSubject<ILang>( GDataService.nullLang);
   public ElementWithFocus: BehaviorSubject<EventTarget | null> = 
      new BehaviorSubject<EventTarget | null>(null);
@@ -97,12 +106,13 @@ export class GDataService implements IForKeyboard{
     return lan;
   }
   
- 
+
 
  
 }
 
-
+export 
+//export var SHOW_KEYBOARD: boolean = false;
 
            
 const G_EN : ILang = {

@@ -4,9 +4,9 @@ import { LanguageComponent } from './pages/language/language.component';
 
 const routes: Routes = [
 
-  { path: '', redirectTo: '/lang', pathMatch: 'full' },
   { path: 'lang', component: LanguageComponent },
-  
+  { path: '', redirectTo: '/lang', pathMatch: 'full' },
+ 
 ];
 
 

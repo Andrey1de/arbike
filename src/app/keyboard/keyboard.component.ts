@@ -31,6 +31,15 @@ export class KeyboardComponent implements  AfterViewInit, OnDestroy {
       this.lang = ilang.langId;
       this._setCapsLock();
     }));
+    const evShow = this.gdata.evShowKeyboard;
+    this._subscriptions.push(evShow.subscribe(toShow=>{
+      if(toShow){
+        this.open();
+      } else {
+        this.close();
+      }
+    }));
+   
   }
   ngOnDestroy(): void {
     this._subscriptions.forEach(s=>s.unsubscribe());
@@ -46,6 +55,8 @@ export class KeyboardComponent implements  AfterViewInit, OnDestroy {
     this.domKeysContainer = this.refKeysContainerDiv.nativeElement;
    
     this._init();
+    this.open();
+    //this.domMain.classList.add("keyboard--hidden");
     //this.gdata.OnKeyboardFocus.subscribe(p=>this._hndlNewFocus(p))
   }
 
@@ -59,7 +70,7 @@ export class KeyboardComponent implements  AfterViewInit, OnDestroy {
   }
 
   
-  open(initialValue : string) {
+  open() {
     //this.properties.value = initialValue || "";
     // this.eventHandlers.oninput = oninput;
     // this.eventHandlers.onclose = onclose;
