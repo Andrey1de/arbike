@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { GDataService } from './svc/gdata.service';
+//import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { GDataService, gOnLang } from './svc/gdata.service';
 import { IInfo } from './interf/interfaces';
 
 class CInfo  {
@@ -22,29 +22,28 @@ export class AppComponent {
   title = 'arbike';
   language:string = 'en';
   direction:string = 'ltr';
-  input1:string = "1";
-  input2:string = "2";
-  input3:string = "3";
+  // input1:string = "1";
+  // input2:string = "2";
+  // input3:string = "3";
   
   txt1:string = 'On';
-  constructor(private gdata:GDataService,
-    private modalService: NgbModal) {
-     this.gdata.OnLang.subscribe(ilang=>{
+  constructor(private gdata:GDataService) {
+     gOnLang.subscribe(ilang=>{
       const langId = ilang.langId;
       this._setLanguage(langId);
       this.language = langId;
       this.direction = (langId === 'en' || langId === 'ru') ? 'ltr' : 'rtl';
-      this.modalService.activeInstances.subscribe(value=>{
-        if(value.length >= 1){
-          const res = value[0].result;
-          console.dir(value[0]);
-          console.dir(res);
+      // this.modalService.activeInstances.subscribe(value=>{
+      //   if(value.length >= 1){
+      //     const res = value[0].result;
+      //     console.dir(value[0]);
+      //     console.dir(res);
       
     
-        }
-       })
+      //   }
+      //  })
     });
-    this.gdata.setCurLang  ('en') ; 
+    //this.gdata.setCurLang  ('en') ; 
 
   }
   
@@ -58,16 +57,16 @@ export class AppComponent {
    
   this.info = this.GInfo.M.get(lan);
  }
-  public  open(modal: any) {
-    const ref =   this.modalService.open(modal);
+  // public  open(modal: any) {
+  //   const ref =   this.modalService.open(modal);
  
-   // debugger;
-   // console.dir(ref);
-  }
+  //  // debugger;
+  //  // console.dir(ref);
+  // }
   // onSwithchChange($event: any): void {  
   //   this.setLanguage(($event.target.checked) ? 'en' : 'ru');
   //  // console.dir($event.target.checked);
 
    
   // }
-}
+}//eoclass

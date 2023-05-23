@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { GDataService } from '../svc/gdata.service';
+import { GDataService, gCurLang, gOnLang } from '../svc/gdata.service';
 import { KEYBOARD_MAP, KeyData } from './keyboard.data';
 import { Subscription } from 'rxjs';
 type EventHandler = (a:string)  =>  {}  ;
@@ -9,7 +9,7 @@ type EventHandler = (a:string)  =>  {}  ;
   styleUrls: ['./keyboard.component.scss']
 })
 export class KeyboardComponent implements  AfterViewInit, OnDestroy {
-  @Input() lang: string = 'en';
+  lang: string = 'en';
   get isLTR () {return this.lang == 'en' || this.lang == 'ru'};
   @ViewChild('keyboard_main', { static: false }) refMainDiv!: ElementRef<HTMLDivElement> ;
   private domMain!: HTMLDivElement;
@@ -20,14 +20,15 @@ export class KeyboardComponent implements  AfterViewInit, OnDestroy {
   private _subscriptions: Subscription[] = [];
   
   constructor(private gdata:GDataService){
-    if(this.lang){
-      this.gdata.setCurLang(this.lang);
-    } else {
-      this.lang = this.gdata.Lang.name;
-    }
+    this.lang = gCurLang.langId;
+    // if(this.lang){
+    //   this.gdata.setCurLang(this.lang);
+    // } else {
+    //   this.lang = this.gdata.Lang.name;
+    // }
     
     
-    this._subscriptions.push(this.gdata.OnLang.subscribe(ilang=>{
+    this._subscriptions.push(gOnLang.subscribe(ilang=>{
       this.lang = ilang.langId;
       this._setCapsLock();
     }));
@@ -74,14 +75,14 @@ export class KeyboardComponent implements  AfterViewInit, OnDestroy {
     //this.properties.value = initialValue || "";
     // this.eventHandlers.oninput = oninput;
     // this.eventHandlers.onclose = onclose;
-    this.domMain.classList.remove("keyboard--hidden");
+    this.domMain?.classList.remove("keyboard--hidden");
   }
 
   close() {
     //this.properties.value = "";
     // this.eventHandlers.oninput = oninput;
     // this.eventHandlers.onclose = onclose;
-    this.domMain.classList.add("keyboard--hidden");
+    this.domMain?.classList.add("keyboard--hidden");
   }
   _init() {
     // Create domMain elements

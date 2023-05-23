@@ -1,21 +1,36 @@
-import { Component } from '@angular/core';
-import { GDataService } from 'src/app/svc/gdata.service';
+import { AfterViewInit, Component, OnDestroy } from '@angular/core';
+import { GDataService, gCurLang, gOnLang } from 'src/app/svc/gdata.service';
 import { ILang } from 'src/app/interf/interfaces';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-language',
   templateUrl: './language.component.html',
   styleUrls: ['./language.component.scss']
 })
-export class LanguageComponent {
+export class LanguageComponent 
+implements AfterViewInit ,OnDestroy{
 
-  curLan: ILang;
+  Lang: ILang;
+
+  subscrArr:Subscription[] = [];
+  
 
   constructor(private gdata: GDataService){
-    this.curLan = this.gdata.OnLang.value;
-    this.gdata.OnLang.subscribe(p=>{
-      this.curLan = p;
-    })
+    this.Lang = gCurLang;
+  }
+  ngOnDestroy(): void {
+    this.subscrArr.forEach(p=>p.unsubscribe());
+  }
+  ngAfterViewInit(): void {
+    this.subscrArr.push(
+      gOnLang.subscribe(p=>{
+        this.Lang = p;
+       
+      })
+
+    )
+   
   }
   setLanguage(lid:string){
     this.gdata.setCurLang(lid);

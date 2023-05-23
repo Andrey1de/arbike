@@ -1,0 +1,96 @@
+<div class="rest-content">
+    <header>
+        <div class="row">
+            <div class="col-xs-4 npr" id="logo">
+                <!--a href="/"><img src="https://bikebox.co.il/registration//app/views/images/logo.png" alt="Logo"></a-->
+            </div>
+            <div class="col-xs-4" id="logo2">
+                <img src="https://bikebox.co.il/registration//app/views/images/logo2.png" alt="Logo2">
+            </div>				
+            <div class="col-xs-4 npl">
+                <!--a class="rel_btn" href="#">יציאה</a-->	
+            </div>	
+        </div>
+    </header>
+
+    <content>
+        <form method="POST" id="step4">
+<div class="content fff">
+<h1>הרשמה למערכת חניון אופניים</h1>
+<h2>כדי להשתמש בשירותי החניון אנא מלא את הפרטים הבאים:</h2>
+<div class="row">
+<div class="col-xs-4 npr">
+    <label>שם פרטי + משפחה</label>
+</div>
+<div class="col-xs-8 npl">
+    <input type="text" name="name" data-pattern="^[a-zA-Z\u0590-\u05FF\-\' ]+$" class="required">
+</div>
+</div>
+
+<div class="row">
+<div class="col-xs-4 npr">
+    <label>מספר ת.ז.</label>
+</div>
+<div class="col-xs-8 npl">
+    <input type="text" name="passport" data-pattern="^[0-9]+$" min="9" max="9" class="required">
+</div>
+</div>	
+
+<div class="row">
+<div class="col-xs-4 npr">
+    <label>אימייל</label>
+</div>
+<div class="col-xs-8 npl">
+    <input type="email" name="email" class="required">
+</div>
+</div>
+
+<div class="row">
+<div class="col-xs-4 npr">
+    <label> מספר ת.ז.</label>
+</div>
+<div class="col-xs-8 npl">
+    <input type="text" data-pattern="^[0-9\+\-]+$" min="10" max="15" name="phone" class="required">
+</div>
+</div>
+
+<div class="row">
+<div class="col-xs-4 npr">
+    <label>כתובת מגורים</label>
+</div>
+<div class="col-xs-8 npl">
+    <input type="text" name="address">
+</div>
+</div>	
+<div class="row">
+<div class="col-xs-4 npr">
+    <label>מספר רב קו</label>
+</div>
+<div class="col-xs-8 npl">
+    <input type="text" name="ravkav" data-pattern="^[0-9]+$" min="16" max="16">
+</div>
+</div>	
+<div class="row">
+<input type="checkbox" class="required" id="ch-1">
+<label for="ch-1">אני מסכים ל<a href="/registration/payment/terms">תנאי השימוש</a></label>
+</div>	
+<div class="row">
+<input type="checkbox" class="required" id="ch-2">
+<label for="ch-2">אני מסכים ל<a href="/registration/payment/policy">מדיניות הפרטיות </a></label>
+</div>	
+</div>
+
+<div class="btns">
+<div class="row">
+<div class="col-xs-6 npr align-right">
+    <a href="/registration/payment/type" class="back">חזור</a>
+    <a href="/registration/payment/exit" style="background: #b46007; margin-right: 5%;" class="back back2">יציאה</a>
+</div>
+<div class="col-xs-6 npl align-left">
+    <button type="submit" class="next">המשך</button>
+</div>		
+</div>
+</div>
+</form>
+    </content>
+</div>

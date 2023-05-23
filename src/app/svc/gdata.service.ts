@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { IForKeyboard, ILang } from 'src/app/interf/interfaces';
+import { G_AR, G_EN, G_HEB, G_RU } from '../pages/language/language.names';
+//var nullLang : ILang = {langId:'??',name:'?????'};
+
 
 //import {ILang} from 'src/app/interf/interfaces';
 @Injectable({
@@ -8,18 +11,9 @@ import { IForKeyboard, ILang } from 'src/app/interf/interfaces';
 })
 
 export class GDataService implements IForKeyboard{
-  private static  nullLang : ILang = {langId:'??',name:'?????'};
-  private mapLan :Map<string,ILang> = 
-    new Map<string,ILang>([
-      ["en", G_EN],
-      ["he", G_HEB],
-      ["ru", G_RU],
-      ["ar", G_AR],
-    ]);
-  private _curLang: ILang = GDataService.nullLang;
-  public get curLang(): ILang {
-    return this.OnLang.value;
-  }
+
+ 
+
   public capsLock: boolean = false;
   public evShowKeyboard :BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public get KeyboardVisible() {return this.evShowKeyboard.value;}
@@ -30,8 +24,7 @@ export class GDataService implements IForKeyboard{
 
     }
   }
-  public OnLang : BehaviorSubject<ILang> = new BehaviorSubject<ILang>( GDataService.nullLang);
-  public ElementWithFocus: BehaviorSubject<EventTarget | null> = 
+   ElementWithFocus: BehaviorSubject<EventTarget | null> = 
      new BehaviorSubject<EventTarget | null>(null);
 
  
@@ -43,10 +36,10 @@ export class GDataService implements IForKeyboard{
     return this.ElementWithFocus.value;
   }
   get Lang(): ILang {
-    return this.OnLang.value;
+    return gOnLang.value;
   }
   get IsLTR(): boolean {
-    return this.Lang.langId === 'en' || this.Lang.langId === 'ru' ;
+    return gCurLang.langId === 'en' || gCurLang.langId === 'ru' ;
   }
   attachKeyboard(targ:EventTarget | null){
    
@@ -91,45 +84,36 @@ export class GDataService implements IForKeyboard{
     
   
   constructor() {
-       this.setCurLang('en');
+       // TBD this.setCurLang('en');
        this.capsLock = false;
    
   }
 
      
   public setCurLang(value: string): ILang | undefined {
-    var  lan = this.mapLan.get(value) ;
+    var  lan = gMapLanguage.get(value) ;
 
     if(lan){
-      this.OnLang.next(this._curLang = lan);
+      gOnLang.next(gCurLang = lan);
     }
     return lan;
   }
-  
-
-
  
 }
 
-export 
+//export 
 //export var SHOW_KEYBOARD: boolean = false;
 
            
-const G_EN : ILang = {
-  langId:'en',
-  name:'English',
-  descr: ''};
 
-const G_RU : ILang = {
-  langId:'ru',
-  name:'Русский',
-  descr: ''};
-
-const G_HEB : ILang = {
-  langId:'he',
-  name:'עברית',
-  descr: ''};
-const G_AR : ILang = {
-  langId:'ar',
-  name:'عربي',
-  descr: ''};
+//TBD
+export var gCurLang :  ILang  = G_EN;
+export const gOnLang : BehaviorSubject<ILang> 
+      = new BehaviorSubject<ILang>( gCurLang);
+const gMapLanguage :Map<string,ILang> = 
+new Map<string,ILang>([
+  ["en", G_EN],
+  ["he", G_HEB],
+  ["ru", G_RU],
+  ["ar", G_AR],
+]);

@@ -9,6 +9,8 @@ import { LanguageComponent } from './pages/language/language.component';
 import { KeyboardComponent } from './keyboard/keyboard.component';
 import { TokeybDirective } from './keyboard/tokeyb.directive';
 import { RegistrationComponent } from './pages/registration/registration.component';
+import { ErrorComponent } from './pages/error/error.component';
+import { RouterModule, Routes } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -16,9 +18,11 @@ import { RegistrationComponent } from './pages/registration/registration.compone
     LanguageComponent,
     KeyboardComponent,
     TokeybDirective,
-    RegistrationComponent
+    RegistrationComponent,
+    ErrorComponent
   ],
   imports: [
+
     BrowserModule,
     NgbModule ,
     FormsModule,
