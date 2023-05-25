@@ -1,28 +1,34 @@
-export interface IInfo{
-    lan: string;
-    info : string;
-  }
-  export interface IRegistration{
+export interface IDialogField{
+    name: string;
+    type: string;
+    label:string;
+    required?: boolean;//default true
+    pattern?: string;
+    placeholder: string;
+    invalidFeedback?:string;
+   
+
+}
+export interface IFieldNames {
+    [key: string]: IDialogField
+}
+export interface IFormLanguageData{
     title:string;
     title2:string;
-    name:string;
-    passport:string;
-    email:string;
-    address:string;
-    phone:string;
-    ravkav:string;
-    iamagree:string;
-    paytermstxt:string;
-    paytermsref:string;
-    paypolicytxt:string;
-    paypolicyref:string;
-
+    flds: IFieldNames
+  
+ }
+export interface IInfo{
+    lan: string;
+    info : string; 
 };
+
+
 export interface IButtons{
-    return:string;
-    exit:string;
-    continue:string;
-    registration:string;
+return:string;
+exit:string;
+continue:string;
+registration:string;
 
 };
 export interface ILang{
@@ -30,13 +36,13 @@ export interface ILang{
     name:string;
     descr?:string;
     btns:IButtons;
-    registr: IRegistration ;
-    
+  
+
 };
 export interface IForKeyboard{
-    sendKeyboardChar(ch:string) : string;
-    set Target(tar: EventTarget | null) ;
-    get Target() : EventTarget | null;
-    get Lang(): ILang;
+sendKeyboardChar(ch:string) : string;
+set Target(tar: EventTarget | null) ;
+get Target() : EventTarget | null;
+get Lang(): ILang;
 
 }

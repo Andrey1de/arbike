@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { IForKeyboard, ILang } from 'src/app/interf/interfaces';
-import { G_AR, G_EN, G_HEB, G_RU } from '../pages/language/language.names';
+import { G_AR, G_EN, G_HEB, G_RU } from '../pages/language-component/language.names';
+
 //var nullLang : ILang = {langId:'??',name:'?????'};
 
 
@@ -111,7 +112,9 @@ export var gCurLang :  ILang  = G_EN;
 export const gOnLang : BehaviorSubject<ILang> 
       = new BehaviorSubject<ILang>( gCurLang);
 const gMapLanguage :Map<string,ILang> = 
+
 new Map<string,ILang>([
+
   ["en", G_EN],
   ["he", G_HEB],
   ["ru", G_RU],

@@ -1,0 +1,61 @@
+
+<div class="container"  [style.direction]='C.direction'>
+  <div class="row">
+    <div class="col-sm-1">
+      <div style="text-align: 
+          center; ">
+        <img src="assets/logoBikeBox.png" alt="BikeBox" 
+        style="height:120px;padding-top:25px; ">
+      </div>
+    </div>
+
+    <div class="col">
+      <app-language>
+        
+      </app-language>
+    </div>
+
+  
+  
+  </div>
+  <div class="row my-3">
+  <!-- <h2>Form Validation After Submit Feedback</h2> -->
+  <!-- <div class="jumbotron"> -->
+    <form id="id-registration-form"class="needs-validation" style="background-color: bisque;"  #f>
+
+    
+      <div class="form-group row" style="border:1px solid black">
+        <!-- <div class="col-sm-1">
+  
+        </div> -->
+        <label  class="col-sm-3 col-form-label">
+          <strong>{{C.address.label}}</strong> 
+        </label>
+        <div class="col-sm-9">
+           <input tokeyb 
+              type="text" 
+              class="form-control" 
+              name="address"
+              [placeholder]="C.address.placeholder"
+            
+              [required]="C.address.required" >
+              <!-- <div class="valid-feedback"> 
+                <strong>It's OK</strong>
+              </div> -->
+              <div class="invalid-feedback"> 
+                <strong>{{C.address.invalidFeedback}}</strong>
+              </div>
+            </div>
+      </div>
+  
+  
+      <button type="button" (click)="validate($event)" 
+        class="btn btn-primary">Submit</button>
+    </form>
+    <!-- </div> -->
+  </div>
+
+</div>
+
+<!-- pattern="{{C.address.pattern}}" -->
+<!-- min="100000" max="10000000000000" -->
