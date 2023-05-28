@@ -1,53 +1,192 @@
 
 <div class="container"  [style.direction]='C.direction'>
-  <div class="row">
+  <div class="row" style heigh >
     <div class="col-sm-1">
       <div style="text-align: 
           center; ">
         <img src="assets/logoBikeBox.png" alt="BikeBox" 
-        style="height:120px;padding-top:25px; ">
+        style="height:120px;padding-top:20px;;padding-bottom:20px; ">
       </div>
     </div>
 
     <div class="col">
-      <app-language>
+       <app-language Height="80px">
         
-      </app-language>
+      </app-language> 
+      <!-- <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+        <label class="btn btn-outline-primary" for="btnradio1">Radio 1</label>
+      
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+        <label class="btn btn-outline-primary" for="btnradio2">Radio 2</label>
+      
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+        <label class="btn btn-outline-primary" for="btnradio3">Radio 3</label>
+      </div> -->
     </div>
 
   
   
   </div>
-  <div class="row my-3">
+  <div class="row ">
   <!-- <h2>Form Validation After Submit Feedback</h2> -->
   <!-- <div class="jumbotron"> -->
-    <form id="id-registration-form"class="needs-validation" style="background-color: bisque;"  #f>
+    <form id="id-registration-form"
+      class="needs-validation" style="background-color: bisque;" 
+      #f >
 
-    
-      <div class="form-group row" style="border:1px solid black">
-        <!-- <div class="col-sm-1">
+    <!-- name -->
+    <div class="form-group row" style="border:1px solid black">
+      <label  class="col-sm-5 col-form-label">
+        <strong>{{C.name.label}}</strong> 
+      </label>
+      <div class="col-sm-7">
+        <input tokeyb="model.name" 
+          id = "id-name"
+          type="text"
+          class="form-control" 
+          name="name"
+          [placeholder]="C.name.placeholder"
+          required
+          defaultValue="model.name"
+        >
+        <div class="invalid-feedback"> 
+          <strong>{{C.name.invalidFeedback}}</strong>
+        </div>
+      </div>  
+    </div>
+
+    <!-- passport -->
+    <div class="form-group row" style="border:1px solid black">
+      <label  class="col-sm-5 col-form-label">
+        <strong>{{C.passport.label}}</strong> 
+      </label>
+      <div class="col-sm-7">
+        <input tokeyb="model.passport" 
+          id = "id-passport"
+          type="text" 
+          class="form-control" 
+          name="passport"
+          [placeholder]="C.passport.placeholder"
+          required
+          pattern="[0-9]{9}"
+          defaultValue="model.passport"
+        >
+        <div class="invalid-feedback"> 
+          <strong>{{C.passport.invalidFeedback}}</strong>
+        </div>
+      </div>  <!-- class="col-sm-7" -->
+    </div>
+
+    <!-- email -->
+    <div class="form-group row" style="border:1px solid black">
+      <label  class="col-sm-5 col-form-label">
+        <strong>{{C.email.label}}</strong> 
+      </label>
+      <div class="col-sm-7">
+        <input tokeyb="model.email" 
+          id = "id-email"
+          type="text" 
+          class="form-control" 
+          name="email"
+          pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
+          defaultValue="model.email"
+          [placeholder]="C.email.placeholder"
+          required
+        >
+        <div class="invalid-feedback"> 
+          <strong>{{C.email.invalidFeedback}}</strong>
+        </div>
+      </div>  <!-- class="col-sm-7" -->
+    </div>
+
+    <!-- address -->
+    <div class="form-group row" style="border:1px solid black">
+        <label  class="col-sm-5 col-form-label">
+        <strong>{{C.address.label}}</strong> 
+      </label>
+      <div class="col-sm-7">
+        <input tokeyb="model.address" 
+          id = "id-address"
+          type="text" 
+          class="form-control" 
+          name="address"
+          [placeholder]="C.address.placeholder"
+          required="C.address.required" 
+          defaultValue="model.address"
+        >
+        <div class="invalid-feedback"> 
+          <strong>{{C.address.invalidFeedback}}</strong>
+        </div>
+      </div>  <!-- class="col-sm-7" -->
+    </div>
+
+    <!-- phone -->
+    <div class="form-group row" style="border:1px solid black">
+      <label  class="col-sm-5 col-form-label">
+        <strong>{{C.phone.label}}</strong> 
+      </label>
+      <div class="col-sm-7">
+        <input tokeyb="model.phone" 
+          id = "id-phone"
+          type="number" 
+          class="form-control" 
+          name="C.phone.name"
+          [placeholder]="C.phone.placeholder"
+          required
+          pattern="[0-9]{9,16}"
+          
+        >
   
-        </div> -->
-        <label  class="col-sm-3 col-form-label">
-          <strong>{{C.address.label}}</strong> 
-        </label>
-        <div class="col-sm-9">
-           <input tokeyb 
-              type="text" 
-              class="form-control" 
-              name="address"
-              [placeholder]="C.address.placeholder"
-            
-              [required]="C.address.required" >
-              <!-- <div class="valid-feedback"> 
-                <strong>It's OK</strong>
-              </div> -->
-              <div class="invalid-feedback"> 
-                <strong>{{C.address.invalidFeedback}}</strong>
-              </div>
-            </div>
-      </div>
+        <div class="invalid-feedback"> 
+          <strong>{{C.phone.invalidFeedback}}</strong>
+        </div>
+      </div>  <!-- class="col-sm-7" -->
+    </div>
+
+    <!-- ravkav -->
+    <div class="form-group row" style="border:1px solid black">
+      <label  class="col-sm-5 col-form-label">
+        <strong>{{C.ravkav.label}}</strong> 
+      </label>
+      <div class="col-sm-7">
+        <input tokeyb="model.ravkav" 
+          id = "id-ravkav"
+          type="number" 
+          class="form-control" 
+          name="ravkav"
+          [placeholder]="C.ravkav.placeholder"
+          pattern="[0-9]{6,15}"
+        >
+        <div class="invalid-feedback"> 
+          <strong>{{C.ravkav.invalidFeedback}}</strong>
+        </div>
+      </div>  <!-- class="col-sm-7" -->
+    </div>
   
+    <!-- iamagree -->
+    <div class="form-group row" style="border:1px solid black">
+      <label  class="col-sm-5 col-form-label">
+        <strong>{{C.iamagree.label}}</strong> 
+      </label>
+      <div class="col-sm-7">
+        <input tokeyb="model.iamagree" 
+          id = "id-iamagree"
+          type="checkbox" 
+          class="form-control" 
+          name="iamagree"
+         
+          required
+        
+          
+        >
+  
+        <div class="invalid-feedback"> 
+          <strong>{{C.iamagree.invalidFeedback}}</strong>
+        </div>
+      </div>  <!-- class="col-sm-7" -->
+    </div>
+
   
       <button type="button" (click)="validate($event)" 
         class="btn btn-primary">Submit</button>
@@ -57,5 +196,5 @@
 
 </div>
 
-<!-- pattern="{{C.address.pattern}}" -->
+<!-- pattern="{{C.ravkav.pattern}}" -->
 <!-- min="100000" max="10000000000000" -->

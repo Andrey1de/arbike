@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, OnInit, Renderer2 } from '@angular/core';
 import { GDataService } from '../svc/gdata.service';
 
 @Directive({
@@ -7,12 +7,14 @@ import { GDataService } from '../svc/gdata.service';
 export class TokeybDirective implements OnInit{
 
   constructor(private hostElt: ElementRef,
+    public renderer: Renderer2,
+   
     private gdata:GDataService//,
     //private renderer: Renderer2,
      ) {
 
   }
-
+    @Input() tobeToggledClassName?: string;
     @HostListener("focus")
     attachKeyboard(){
       const trg = this.hostElt.nativeElement;

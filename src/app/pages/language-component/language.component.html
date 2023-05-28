@@ -7,11 +7,11 @@
 
  
     </div> -->
-    <div class="row my-3" >
-        <div class="col-1" style="height: 80px;">
+    <div class="row" [style.height]="Height" >
+        <div class="col-1"  >
         <!-- {{ Lang.name}} -->
         </div>
-        <div class="col-10">
+        <div class="col-10" sty>
             <button type="button" class="btn btn-success btn-set-lang" 
                 [ngClass]="{'btn-set-lang-selected': Lang.langId === 'en'}"
                 (click)="setLanguage('en')">English</button>
@@ -29,7 +29,5 @@
         
         </div>
     </div>
-    <div class="row my-3"  >
-       
-    </div>
+   
 </div>

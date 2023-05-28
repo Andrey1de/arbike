@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { GDataService, gCurLang, gOnLang } from '../svc/gdata.service';
 import { KEYBOARD_MAP, KeyData } from './keyboard.data';
 import { Subscription } from 'rxjs';
@@ -19,7 +19,7 @@ export class KeyboardComponent implements  AfterViewInit, OnDestroy {
   private keybFocusTarget?: EventTarget = undefined;
   private _subscriptions: Subscription[] = [];
   
-  constructor(private gdata:GDataService){
+  constructor(private gdata:GDataService , public renderer: Renderer2){
     this.lang = gCurLang.langId;
     // if(this.lang){
     //   this.gdata.setCurLang(this.lang);

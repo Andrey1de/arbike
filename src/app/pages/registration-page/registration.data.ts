@@ -84,7 +84,7 @@ const REGISTR_EN : IRegistrationFields = {
    ravkav:{
       name: 'ravkav',
       type: 'text',
-      label:'מספר רב קו',
+      label:'Rav Kav No:',
       required: false,//default true
       pattern: '',
       placeholder:'',
@@ -206,9 +206,9 @@ const REGISTR_HE : IRegistrationFields = {
    name: {
       name: 'name',
       type: 'text',
-      label:'שם פרטי + משפחה',
+      label:'שם פרטיומשפחה',
       required: true,//default true
-      pattern: '^[a-zA-Z\u0590-\u05FF\-\' ]+$',
+   
       placeholder: '',
       invalidFeedback: 'תמלא שדה חובה',
    },
@@ -282,66 +282,65 @@ const REGISTR_HE : IRegistrationFields = {
 const REGISTR_AR : IRegistrationFields = {
    langId:'ar',
    direction:'rtl',
-   title:'הרשמה למערכת חניון אופניים',
-   title2:'כדי להשתמש בשירותי החניון אנא מלא את הפרטים הבאים',
-   name: {
+   title:'التسجيل في نظام وقوف الدراجات الهوائية',
+   title2:'لاستخدام خدمات موقف السيارات ، يرجى ملء التفاصيل التالية' ,
+    name: {
       name: 'name',
       type: 'text',
-      label:'שם פרטי + משפחה',
+      label:'الاسم الأول واسم العائلة',
       required: true,//default true
-      pattern: '^[a-zA-Z\u0590-\u05FF\-\' ]+$',
       placeholder: '',
-      invalidFeedback: 'תמלא שדה חובה',
+      invalidFeedback: 'املأ الحقل المطلوب',
    },
    passport:{
       name: 'passport',
       type: 'text',
-      label:'מספר ת.ז.',
+      label:'رقم الهويه.',
       required: true,//default true
       pattern: '[0-9]{9}',
       placeholder: '',
-      invalidFeedback:'תמלא שדה ב 9 ספרות',
+      invalidFeedback:'املأ الحقل بـ 9 أرقام',
    },
    email:{
       name: 'email',
       type: 'text',
-      label:'אימייל',
+      label:'بريد إلكتروني',
       required: true,//default true
       pattern: '^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
       placeholder: '',
-      invalidFeedback:'תמלא שדה חובה',
+      invalidFeedback:'املأ الحقل بتنسيق البريد الإلكتروني',
    },
    address:{
       name: 'address',
       type: 'text',
-      label:'כתובת מגורים',
+      label:'عنوان السكن',
       required: true,//default true
-      pattern: '',
-      placeholder: '',
-      invalidFeedback:'תמלא שדה חובה',
-   },
-   phone:{
-      name: 'phone',
-      type: 'text',
-      label:'מספר טלפון',
-      required: true,//default true
-      pattern: '[0-9\+\-]{10,15}',
-      placeholder: '',
-      invalidFeedback:'תמלא שדה חובה',
-   },
-   ravkav:{
-      name: 'ravkav',
-      type: 'text',
-      label:'מספר רב קו',
-      required: false,//default true
       pattern: '',
       placeholder: '',
       invalidFeedback:'',
    },
+   phone:{
+      name: 'phone',
+      type: 'text',
+      label:'رقم الهاتف',
+      required: true,//default true
+      pattern: '[0-9\+\-]{10,15}',
+      placeholder: '',
+      invalidFeedback: 'املأ الحقل المطلوب',
+   },
+   ravkav:{
+      name: 'ravkav',
+      type: 'text',
+      label: "رقم \"Rav Kav\"",
+      required: false,//default true
+      pattern: '',
+      placeholder: '',
+      invalidFeedback:'املأ الحقل بـ 9 أرقام',
+   },
    iamagree:{
       name: 'iamagree',
       type: 'text',
-      label:'אני מסכים ל',
+      label:'أوافق على',
       required: true,//default true
       pattern: '',
       placeholder: '',

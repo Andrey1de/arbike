@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy } from '@angular/core';
 import { GDataService, gCurLang, gOnLang } from 'src/app/svc/gdata.service';
 import { ILang } from 'src/app/interf/interfaces';
 import { Subscription } from 'rxjs';
@@ -12,6 +12,7 @@ export class LanguageComponent
 implements AfterViewInit ,OnDestroy{
 
   Lang: ILang;
+  @Input() Height:string = '80px';
 
   subscrArr:Subscription[] = [];
   
