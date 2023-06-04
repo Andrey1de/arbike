@@ -2,7 +2,20 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { IForKeyboard, ILang } from 'src/app/interf/interfaces';
 import { G_AR, G_EN, G_HEB, G_RU } from '../pages/language-component/language.names';
+import fireEvent from '@testing-library/user-event';
+//TBD
+export var gCurLang :  ILang  = G_EN;
+export const gOnLang : BehaviorSubject<ILang> 
+      = new BehaviorSubject<ILang>( gCurLang);
+const gMapLanguage :Map<string,ILang> = 
 
+new Map<string,ILang>([
+
+  ["en", G_EN],
+  ["he", G_HEB],
+  ["ru", G_RU],
+  ["ar", G_AR],
+]);
 //var nullLang : ILang = {langId:'??',name:'?????'};
 
 
@@ -64,18 +77,22 @@ export class GDataService implements IForKeyboard{
     if(trg.value !== undefined){
       var str = trg.value.toString();
       if(ch === '\n' || ch === 'enter') {
-        trg.value = str + '\n';
+        //trg.value = str + '\n';
+        ch = '\n' ;
       }       
       else  if(ch === '\b' || ch === 'backspace') {
-        trg.value = str.substring(0, str.length - 1);
+       // trg.value = str.substring(0, str.length - 1);
+       //fireEvent.type(trg,'\b');
+       ch = '\b' ;
       }
-      else  if(ch?.length === 1){
-        trg.value = str + ch;
+      if(ch?.length === 1){
+        //trg.value = str + ch;
+        fireEvent.type(trg,ch);
       } 
 
-  
+     
     }
-    return trg.value;
+  
   }
 
   detachKeyboard(targ:EventTarget | null){
@@ -107,16 +124,3 @@ export class GDataService implements IForKeyboard{
 
            
 
-//TBD
-export var gCurLang :  ILang  = G_EN;
-export const gOnLang : BehaviorSubject<ILang> 
-      = new BehaviorSubject<ILang>( gCurLang);
-const gMapLanguage :Map<string,ILang> = 
-
-new Map<string,ILang>([
-
-  ["en", G_EN],
-  ["he", G_HEB],
-  ["ru", G_RU],
-  ["ar", G_AR],
-]);

@@ -38,7 +38,7 @@ export interface ILang{
 
 };
 export interface IForKeyboard{
-sendKeyboardChar(ch:string) : string;
+sendKeyboardChar(ch:string): void;
 set Target(tar: EventTarget | null) ;
 get Target() : EventTarget | null;
 get Lang(): ILang;

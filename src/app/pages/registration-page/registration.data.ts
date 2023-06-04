@@ -317,7 +317,7 @@ const REGISTR_AR : IRegistrationFields = {
       required: true,//default true
       pattern: '',
       placeholder: '',
-      invalidFeedback:'',
+      invalidFeedback:'املأ الحقل المطلوب',
    },
    phone:{
       name: 'phone',

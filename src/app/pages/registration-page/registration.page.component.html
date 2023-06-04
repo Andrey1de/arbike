@@ -48,7 +48,8 @@
           name="name"
           [placeholder]="C.name.placeholder"
           required
-          defaultValue="model.name"
+          [(ngModel)]="model.name"
+       
         >
         <div class="invalid-feedback"> 
           <strong>{{C.name.invalidFeedback}}</strong>
@@ -114,6 +115,7 @@
           [placeholder]="C.address.placeholder"
           required="C.address.required" 
           defaultValue="model.address"
+          [(ngModel)] = "model.address"
         >
         <div class="invalid-feedback"> 
           <strong>{{C.address.invalidFeedback}}</strong>
