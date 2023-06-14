@@ -21,7 +21,7 @@ implements AfterViewInit ,OnDestroy{
     this.Lang = gCurLang;
   }
   ngOnDestroy(): void {
-    this.subscrArr.forEach(p=>p.unsubscribe());
+    this.subscrArr.forEach(p=>p?.unsubscribe());
   }
   ngAfterViewInit(): void {
     this.subscrArr.push(
